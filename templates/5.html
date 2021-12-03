@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>5test</title>
+    {% for i in num %}
+    <h1>
+        {% for b in range(1,i+1) %}
+        {{i}} * {{b}}={{ i*b }} |
+        {% endfor %}
+    </h1>
+    {% endfor %}
+</head>
