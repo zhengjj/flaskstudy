@@ -6,6 +6,7 @@
 
 from flask import Flask,views,request
 from flask.templating import render_template 
+from functools import wraps
 import time
 
 app=Flask(__name__)
@@ -15,19 +16,20 @@ def index():
     return render_template('5.1.html')
 
 def runtime(func):
-    def inner():
+    @wraps(func)
+    def inner(*args,**kwargs):
         stime=time.time()
-        func()
+        func(*args,**kwargs)
         endtime=time.time()
-        print("运行时间 %s"% endtime - stime )
+        print("运行时间 %s"% (endtime - stime) )
     return inner
 
 class loginView(views.MethodView):
     
     def get(self):
         print("get方法")
-        time.sleep(2)
-        return render_template('5.1.html')
+        news()
+        return "空空"
     
     def post(self):
         username=request.form.get("username")
@@ -39,6 +41,15 @@ class loginView(views.MethodView):
             return "错误！"
 
 app.add_url_rule('/login',view_func=loginView.as_view('loginView'))
+
+
+@runtime
+def news(a=1):#定义函数news
+    print('参数是%s'%a)
+    print('这是新闻详情页!')#打印输出
+    time.sleep(2)
+
+
 
 
 if __name__ == '__main__':
