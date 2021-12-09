@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <meta charset="utf-8">
+        <title>formtest</title>
+    </header>
+    <body>
+        <div>
+            <form action="login" method="post">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                {{ form.name(size=16,id='name') }}
+                {% for e in form.name.errors %}
+                <span style="color: red;"> {{e}} </span>
+                {% endfor %}
+                {{ form.password(size=16,id='password') }}
+                {% for e in form.password.errors %}
+                <span style="color: red;"> {{e}} </span>
+                {% endfor %}
+                <input type="submit" name='submit' value="登录">
+
+            </form>
+        </div>
+    </body>
+</html>
